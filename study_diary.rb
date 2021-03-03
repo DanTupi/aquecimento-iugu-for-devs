@@ -1,5 +1,10 @@
 require_relative 'study_item'
 
+INSERT = 1
+VIEW = 2
+SEARCH = 3
+EXIT = 4
+
 def clear
   system('clear')
 end
@@ -20,10 +25,10 @@ def welcome
 end
 
 def menu
-  puts "[1] Cadastrar um item para estudar"
-  puts "[2] Ver todos os itens cadastrados"
-  puts "[3] Buscar um item de estudo"
-  puts "[4] Sair"
+  puts "[#{INSERT}] Cadastrar um item para estudar"
+  puts "[#{VIEW}] Ver todos os itens cadastrados"
+  puts "[#{SEARCH}] Buscar um item de estudo"
+  puts "[#{EXIT}] Sair"
   print 'Escolha uma opção: '
   gets.to_i
 end
@@ -62,19 +67,19 @@ option = menu
 loop do
   clear
   case option
-  when 1
+  when INSERT
     study_items << register_study_item
-  when 2
+  when VIEW
     print_items(study_items)
-  when 3
+  when SEARCH
     search_items(study_items)
-  when 4
+  when EXIT
     clear
     puts 'Obrigado por usar o Diário de Estudos'
     break
   else
     puts 'Opção inválida'
   end
-  wait_keypress_and_wait
+  wait_keypress_and_clear
   option = menu
 end
