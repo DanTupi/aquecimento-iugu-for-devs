@@ -1,3 +1,5 @@
+require_relative 'study_item'
+
 def clear
   system('clear')
 end
@@ -8,7 +10,7 @@ def wait_keypress
   gets
 end
 
-def wait_keypress_and_wait
+def wait_keypress_and_clear
   wait_keypress
   clear
 end
@@ -32,20 +34,21 @@ def register_study_item
   print 'Digite a categoria do seu item de estudo: '
   category = gets.chomp
   puts "Item '#{title}' da categoria '#{category}' cadastrado com sucesso!"
-  { title: title, category: category }
+  StudyItem.new(title, category)
 end
+
 def print_items(collection)
   collection.each_with_index do |item, index|
-    puts "##{index + 1} - #{item[:title]} - #{item[:category]}"
+    puts "##{index +1} - #{item.title} - #{item.category}"
   end
-  puts 'Nenhum item cadastrado' if collection.empty?
+  puts 'Nenhum item cadastrado'if collection.empty?
 end
 
 def search_items(collection)
   print 'Digite uma palavra para procurar: '
   term = gets.chomp
   found_items = collection.filter do |item|
-    item[:title].include?(term)
+    item.title.include?(term)
   end
   print_items(found_items)
   puts 'Nenhum item encontrado' if collection.empty?
